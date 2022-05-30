@@ -42,7 +42,6 @@ export const checkAnnotation = (
   if (annotation === `${arr.join(':')}:`) {
     for (let i = 0; i < arr.length; i++) {
       const r = arr[i]
-
       if (_pseudoMatcher.validate(r))
         ret.annotation.pseudo.push(r)
       else if (_darkMatcher.validate(r))
@@ -99,9 +98,22 @@ export const transformer = (origin: string): TransFormerResult | null => {
   if (annotationRet === null)
     return null
 
+  const convertedClassName = convertOrigin(origin)
+
   return {
     origin,
+    convertedClassName,
     ...pureRet,
     ...annotationRet
   }
+}
+function convertOrigin(origin: string) {
+  return origin
+    .replaceAll(/\,/g, '\\,')
+    .replaceAll(/\./g, '\\.')
+    .replaceAll(/\(/g, '\\(')
+    .replaceAll(/\)/g, '\\)')
+    .replaceAll(/\[/g, '\\[')
+    .replaceAll(/\]/g, '\\]')
+    .replaceAll(/\:/g, '\\:')
 }

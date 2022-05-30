@@ -13,6 +13,11 @@ export interface AmNode<T extends BasicObject = {}, N extends BasicObject = {}>
    * @description: 允许插件在其配置中添加自己想要的配置
    */
   options?: N
+
+  /**
+   * @description: 可直接应用在 css 中的 className
+   */
+  convertedClassName?: string
 }
 
 // 扫描器
